@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">FBI Operation Level Up video cover</title>
+  <desc id="desc">A preview card for an FBI video about cryptocurrency investment fraud.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#10251b"/><stop offset="1" stop-color="#203a2b"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#cce78a" stop-opacity=".18"/><stop offset="1" stop-color="#cce78a" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <circle cx="1010" cy="240" r="340" fill="url(#glow)"/>
+  <g fill="none" stroke="#d6e5cf" stroke-opacity=".12" stroke-width="2"><path d="M790 126h270l92 92v270H882l-92-92z"/><path d="M842 180h210M842 220h140M842 468h265"/></g>
+  <g fill="#cce78a" fill-opacity=".7"><circle cx="1090" cy="180" r="5"/><circle cx="1162" cy="236" r="4"/><circle cx="1000" cy="500" r="5"/></g>
+  <rect x="74" y="72" width="199" height="42" rx="21" fill="#cce78a" fill-opacity=".12" stroke="#cce78a" stroke-opacity=".35"/>
+  <text x="99" y="99" fill="#d9ecb8" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="2">OFFICIAL FBI VIDEO</text>
+  <text x="76" y="260" fill="#f5f7ee" font-family="Arial,sans-serif" font-size="65" font-weight="700">OPERATION</text>
+  <text x="76" y="339" fill="#cce78a" font-family="Arial,sans-serif" font-size="75" font-weight="700">LEVEL UP</text>
+  <text x="80" y="397" fill="#d1ddd0" font-family="Arial,sans-serif" font-size="25">Cryptocurrency investment fraud</text>
+  <text x="80" y="438" fill="#aab9aa" font-family="Arial,sans-serif" font-size="21">Scam awareness · Approx. 5 minutes</text>
+  <circle cx="1040" cy="344" r="76" fill="#cce78a" fill-opacity=".95"/>
+  <path d="M1027 305l57 39-57 39z" fill="#183326"/>
+  <text x="80" y="642" fill="#b5c6b3" font-family="Arial,sans-serif" font-size="17" letter-spacing="1">PAUSE · VERIFY · REPORT</text>
+</svg>
