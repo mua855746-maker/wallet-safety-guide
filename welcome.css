@@ -27,3 +27,19 @@
 .welcome-action-dark{background:#15120e;border-color:#c8ab65}
 .welcome-manual-link{box-sizing:border-box;width:100%;margin-top:10px;padding:10px;border:1px solid #bcc9bd;border-radius:8px;font-size:16px;color:#18251e;background:#fff}
 .welcome-action:focus-visible{outline:3px solid #315740;outline-offset:3px}
+
+/* Consistent sizing and readable responsive welcome layout. */
+.welcome-gate,.welcome-gate *{box-sizing:border-box}
+.welcome-gate{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;padding:24px;overflow:auto}
+.welcome-card{width:min(100%,470px);padding:30px;max-height:calc(100dvh - 48px)}
+.welcome-mark{flex-shrink:0}
+.welcome-brand-copy{font-size:14px}
+.welcome-label{font-size:11px;letter-spacing:0}
+.welcome-title{font-size:30px;line-height:1.35;letter-spacing:0;overflow-wrap:anywhere}
+.welcome-copy,.welcome-instructions{font-size:14px;line-height:1.85}
+.welcome-banner{font-size:13px}
+.welcome-actions{gap:12px}
+.welcome-action{min-height:50px;font-size:15px;padding:13px 18px}
+.welcome-footnote{font-size:11px;line-height:1.7}
+.welcome-status{font-size:13px;line-height:1.7;overflow-wrap:anywhere}
+@media(max-width:520px){.welcome-gate{padding:16px}.welcome-card{padding:24px 20px;max-height:calc(100dvh - 32px)}.welcome-title{font-size:27px}.welcome-brand{margin-bottom:18px}}
