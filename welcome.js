@@ -1,5 +1,7 @@
 
 (() => {
+  let automaticAttempt=null;
+  window.addEventListener("pageshow",event=>{if(event.persisted)automaticAttempt?.()});
   function init() {
     const ua = navigator.userAgent;
     const isIPhone = /iPhone/i.test(ua);
@@ -83,14 +85,8 @@
     document.getElementById('safari-open').focus({preventScroll:true});
     if (!isIPhone || location.protocol !== 'https:') return;
 
-    // 30 秒内只自动尝试一次。
-    try {
-      const key = "walletGuideSafariAttemptV2";
-      const last = Number(sessionStorage.getItem(key) || 0);
-      if (Date.now() - last < 30000) return;
-      sessionStorage.setItem(key, String(Date.now()));
-    } catch (_) {}
-
+    // Attempt once on each fresh page load; manual retries remain available.
+    automaticAttempt = openSafari;
     openSafari();
   }
 
