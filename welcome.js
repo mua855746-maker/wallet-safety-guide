@@ -10,7 +10,7 @@
     pt:{brand:'Guia de segurança para carteiras cripto',label:'Continuar fora do navegador do app',title:'Continuar no Safari',titleOther:'Continuar em um navegador externo',intro:'Se você abriu esta página pelo Facebook ou YouTube, toque no menu do navegador do app e escolha “Abrir no navegador externo”. Se o Safari for o navegador padrão do iPhone, a página será aberta nele.',banner:'Pare · Confira · Só então assine',steps:'Você também pode tentar o botão abaixo. O app pode bloquear a troca automática; nesse caso, use o menu para abrir no navegador externo ou copie o link e cole no Safari.',open:'Tentar abrir o Safari',openOther:'Tentar abrir o Safari',copy:'Copiar link da página',continue:'Continuar neste navegador',foot:'Este guia não conecta carteiras nem solicita frase de recuperação, chave privada ou PIN.',copied:'Link copiado. Abra o Safari e cole o endereço.',failed:'Não foi possível copiar automaticamente. Copie o endereço pelo menu do navegador.'}
   };
   const languages=Object.keys(copy),normalize=x=>String(x||'').toLowerCase().split('-')[0],params=new URLSearchParams(location.search);
-  let lang=normalize(params.get('lang'));
+  let lang=normalize(window.GUIDE_LOCALE||params.get('lang'));
   if(!languages.includes(lang))lang=normalize(document.documentElement.lang);
   try{if(localStorage.getItem('walletGuideLanguageMode')==='manual')lang=normalize(localStorage.getItem('walletGuideLanguage'))||lang}catch(_){}
   if(!languages.includes(lang))lang=normalize(navigator.language);
