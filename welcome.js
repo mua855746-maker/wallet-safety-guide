@@ -1,71 +1,116 @@
-(()=>{
-  const copy={
-    zh:{brand:'加密钱包安全指南',label:'从应用内浏览器切换',title:'在 Safari 中继续浏览',titleOther:'在外部浏览器中继续',intro:'如果你从 Facebook 或 YouTube 点开本页，请点应用内浏览器右上角菜单，选择“在外部浏览器打开”。若 Safari 是 iPhone 的默认浏览器，页面就会在 Safari 中打开。',banner:'先核对，再签名 · 钱包安全第一步',steps:'点击“跳转 Safari”尝试打开本页。跳转取决于设备和当前应用支持；如果系统询问是否打开，请确认。无法跳转时，请点击“复制链接”，打开 Safari 后粘贴网址，也可使用应用菜单中的“在外部浏览器打开”。',open:'跳转 Safari',openOther:'跳转 Safari',copy:'复制链接',continue:'继续浏览本页',foot:'本页不会连接钱包，也不会索取助记词、私钥或 PIN。',copied:'链接已复制。请打开 Safari 并粘贴网址。',failed:'无法自动复制，请使用浏览器菜单复制当前网址。'},
-    en:{brand:'Crypto Wallet Safety Guide',label:'Continue outside the in-app browser',title:'Continue in Safari',titleOther:'Continue in an external browser',intro:'If you opened this page from Facebook or YouTube, tap the menu in the in-app browser and choose “Open in external browser.” If Safari is your iPhone’s default browser, the page will open in Safari.',banner:'Pause · Verify · Then Sign',steps:'You can also try the button below. The app may block automatic switching; if it does, use the menu to open the page externally, or copy the link and paste it into Safari.',open:'Try opening Safari',openOther:'Try opening Safari',copy:'Copy page link',continue:'Continue in this browser',foot:'This guide does not connect to wallets or ask for recovery phrases, private keys or PINs.',copied:'Link copied. Open Safari and paste the address.',failed:'Could not copy automatically. Use your browser menu to copy this page address.'},
-    es:{brand:'Guía de seguridad para wallets',label:'Continuar fuera del navegador integrado',title:'Continuar en Safari',titleOther:'Continuar en un navegador externo',intro:'Si abriste esta página desde Facebook o YouTube, toca el menú del navegador integrado y elige «Abrir en navegador externo». Si Safari es el navegador predeterminado de tu iPhone, la página se abrirá allí.',banner:'Pausa · Verifica · Firma solo cuando estés seguro',steps:'También puedes probar el botón de abajo. La aplicación puede impedir el cambio automático; si ocurre, abre el menú y elige «Abrir en navegador externo», o copia el enlace y pégalo en Safari.',open:'Probar a abrir Safari',openOther:'Probar a abrir Safari',copy:'Copiar enlace',continue:'Continuar en este navegador',foot:'Esta guía no conecta wallets ni solicita frases de recuperación, claves privadas o PIN.',copied:'Enlace copiado. Abre Safari y pega la dirección.',failed:'No se pudo copiar automáticamente. Copia la dirección desde el menú del navegador.'},
-    fr:{brand:'Guide de sécurité des portefeuilles crypto',label:'Continuer hors du navigateur intégré',title:'Continuer dans Safari',titleOther:'Continuer dans un navigateur externe',intro:'Si vous avez ouvert cette page depuis Facebook ou YouTube, touchez le menu du navigateur intégré et choisissez « Ouvrir dans un navigateur externe ». Si Safari est le navigateur par défaut de votre iPhone, la page s’y ouvrira.',banner:'Faites une pause · Vérifiez · Puis signez',steps:'Vous pouvez aussi essayer le bouton ci-dessous. L’application peut bloquer le changement automatique ; dans ce cas, ouvrez le menu et choisissez « Ouvrir dans un navigateur externe », ou copiez le lien et collez-le dans Safari.',open:'Essayer d’ouvrir Safari',openOther:'Essayer d’ouvrir Safari',copy:'Copier le lien',continue:'Continuer dans ce navigateur',foot:'Ce guide ne se connecte à aucun portefeuille et ne demande jamais de phrase de récupération, clé privée ou code PIN.',copied:'Lien copié. Ouvrez Safari et collez l’adresse.',failed:'Copie automatique impossible. Utilisez le menu du navigateur pour copier l’adresse.'},
-    de:{brand:'Leitfaden zur Krypto-Wallet-Sicherheit',label:'Außerhalb des In-App-Browsers fortfahren',title:'In Safari fortfahren',titleOther:'In einem externen Browser fortfahren',intro:'Wenn Sie diese Seite über Facebook oder YouTube geöffnet haben, tippen Sie im In-App-Browser auf das Menü und wählen Sie „In externem Browser öffnen“. Ist Safari der Standardbrowser Ihres iPhones, wird die Seite dort geöffnet.',banner:'Erst prüfen · Dann sicher signieren',steps:'Sie können auch die Schaltfläche unten ausprobieren. Die App kann den automatischen Wechsel blockieren. Öffnen Sie dann das Menü und wählen Sie „In externem Browser öffnen“, oder kopieren Sie den Link und fügen Sie ihn in Safari ein.',open:'Safari zu öffnen versuchen',openOther:'Safari zu öffnen versuchen',copy:'Seitenlink kopieren',continue:'In diesem Browser fortfahren',foot:'Dieser Leitfaden verbindet sich nicht mit Wallets und fragt niemals nach Wiederherstellungsphrase, privatem Schlüssel oder PIN.',copied:'Link kopiert. Öffnen Sie Safari und fügen Sie die Adresse ein.',failed:'Automatisches Kopieren nicht möglich. Kopieren Sie die Adresse über das Browsermenü.'},
-    ja:{brand:'暗号資産ウォレット安全ガイド',label:'アプリ内ブラウザーの外で開く',title:'Safariで続ける',titleOther:'外部ブラウザーで続ける',intro:'FacebookやYouTubeから開いた場合は、アプリ内ブラウザーのメニューで「外部ブラウザーで開く」を選んでください。iPhoneのデフォルトブラウザーがSafariなら、Safariで開きます。',banner:'確認してから署名 · ウォレットを守る',steps:'下のボタンから外部ブラウザーで開くことも試せます。アプリが自動切り替えを制限する場合は、メニューから外部ブラウザーを選ぶか、リンクをコピーしてSafariに貼り付けてください。',open:'Safariで開くことを試す',openOther:'Safariで開くことを試す',copy:'ページのリンクをコピー',continue:'このまま閲覧を続ける',foot:'ウォレットには接続せず、リカバリーフレーズ・秘密鍵・PINも求めません。',copied:'リンクをコピーしました。Safariを開いて貼り付けてください。',failed:'自動コピーできませんでした。ブラウザーのメニューからURLをコピーしてください。'},
-    ko:{brand:'암호화폐 지갑 보안 가이드',label:'앱 내 브라우저 밖에서 열기',title:'Safari에서 계속하기',titleOther:'외부 브라우저에서 계속하기',intro:'Facebook이나 YouTube에서 이 페이지를 열었다면 앱 내 브라우저 메뉴에서 “외부 브라우저에서 열기”를 선택하세요. iPhone의 기본 브라우저가 Safari이면 Safari에서 열립니다.',banner:'확인한 다음 서명하세요 · 지갑 안전 우선',steps:'아래 버튼으로 외부 브라우저 열기도 시도할 수 있습니다. 앱이 자동 전환을 막으면 메뉴에서 외부 브라우저를 선택하거나 링크를 복사해 Safari에 붙여 넣으세요.',open:'Safari 열기 시도',openOther:'Safari 열기 시도',copy:'페이지 링크 복사',continue:'현재 브라우저에서 계속',foot:'지갑에 연결하지 않으며 복구 문구, 개인 키, PIN을 요구하지 않습니다.',copied:'링크를 복사했습니다. Safari를 열어 붙여 넣으세요.',failed:'자동 복사에 실패했습니다. 브라우저 메뉴에서 현재 주소를 복사하세요.'},
-    pt:{brand:'Guia de segurança para carteiras cripto',label:'Continuar fora do navegador do app',title:'Continuar no Safari',titleOther:'Continuar em um navegador externo',intro:'Se você abriu esta página pelo Facebook ou YouTube, toque no menu do navegador do app e escolha “Abrir no navegador externo”. Se o Safari for o navegador padrão do iPhone, a página será aberta nele.',banner:'Pare · Confira · Só então assine',steps:'Você também pode tentar o botão abaixo. O app pode bloquear a troca automática; nesse caso, use o menu para abrir no navegador externo ou copie o link e cole no Safari.',open:'Tentar abrir o Safari',openOther:'Tentar abrir o Safari',copy:'Copiar link da página',continue:'Continuar neste navegador',foot:'Este guia não conecta carteiras nem solicita frase de recuperação, chave privada ou PIN.',copied:'Link copiado. Abra o Safari e cole o endereço.',failed:'Não foi possível copiar automaticamente. Copie o endereço pelo menu do navegador.'}
-  };
-  const languages=Object.keys(copy),normalize=x=>String(x||'').toLowerCase().split('-')[0],params=new URLSearchParams(location.search);
-  let lang=normalize(window.GUIDE_LOCALE||params.get('lang'));
-  if(!languages.includes(lang))lang=normalize(document.documentElement.lang);
-  try{if(localStorage.getItem('walletGuideLanguageMode')==='manual')lang=normalize(localStorage.getItem('walletGuideLanguage'))||lang}catch(_){}
-  if(!languages.includes(lang))lang=normalize(navigator.language);
-  if(!languages.includes(lang))lang='en';
-  const t=copy[lang],ua=navigator.userAgent,iPhone=/iPhone/.test(ua),ios=/iPad|iPhone|iPod/.test(ua),inAppBrowser=/FBAN|FBAV|FBIOS|Instagram|Line\/|Twitter|TikTok|MicroMessenger|GSA\/|YouTube|Snapchat/i.test(ua),isSafari=iPhone&&!inAppBrowser&&/Version\/[\d.]+.*Safari\//.test(ua)&&!/(CriOS|FxiOS|EdgiOS|OPiOS|Chrome|Chromium|Firefox|Edg\/|OPR\/)/i.test(ua),openLabel=ios?t.open:t.openOther,title=iPhone?t.title:t.titleOther,unsupported={zh:'本指南仅限 iPhone Safari 浏览。请在 iPhone 上打开 Safari，再粘贴此页面链接。',en:'This guide is limited to Safari on iPhone. Open Safari on your iPhone and paste this page link.',es:'Esta guía solo está disponible en Safari para iPhone. Abre Safari en tu iPhone y pega este enlace.',fr:'Ce guide est réservé à Safari sur iPhone. Ouvrez Safari sur votre iPhone et collez ce lien.',de:'Dieser Leitfaden ist auf Safari für iPhone beschränkt. Öffnen Sie Safari auf Ihrem iPhone und fügen Sie diesen Link ein.',ja:'このガイドはiPhoneのSafari専用です。iPhoneでSafariを開き、このリンクを貼り付けてください。',ko:'이 가이드는 iPhone Safari 전용입니다. iPhone에서 Safari를 열고 이 링크를 붙여 넣으세요.',pt:'Este guia está disponível apenas no Safari para iPhone. Abra o Safari no iPhone e cole este link.'},onlyIPhone={zh:'仅限 iPhone Safari 访问',en:'Safari on iPhone required',es:'Se requiere Safari en iPhone',fr:'Safari sur iPhone requis',de:'Safari auf dem iPhone erforderlich',ja:'iPhoneのSafariが必要です',ko:'iPhone Safari가 필요합니다',pt:'Safari no iPhone necessário'};
-  if(isSafari){document.documentElement.dataset.walletGuideBrowser='safari';return}
-  const intro=iPhone?t.intro:unsupported[lang];
-  const overlay=document.createElement('div');overlay.className='welcome-gate';overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.setAttribute('aria-labelledby','welcome-title');overlay.setAttribute('aria-describedby','welcome-copy');
-  overlay.innerHTML=`<section class="welcome-card"><div class="welcome-brand"><span class="welcome-mark" aria-hidden="true"><svg viewBox="0 0 32 32" width="24" height="24" fill="none"><circle cx="16" cy="16" r="12.5" stroke="currentColor" stroke-width="1.8"/><path d="m20.8 10.3-3.5 8.1-6.1 3.3 3.1-7.9 6.5-3.5Z" fill="#cce78a" stroke="#cce78a" stroke-linejoin="round"/><path d="m20.8 10.3-3.5 8.1-3-4.6 6.5-3.5Z" fill="#f7fff0"/></svg></span><div class="welcome-brand-copy">${t.brand}<small>PAUSE · CHECK · THEN SIGN</small></div></div><div class="welcome-label"><span aria-hidden="true">◈</span>${t.label}</div><h1 class="welcome-title" id="welcome-title">${iPhone?title:onlyIPhone[lang]}</h1><p class="welcome-copy" id="welcome-copy">${intro}</p><div class="welcome-banner">${t.banner}</div><div class="welcome-instructions">${iPhone?t.steps:unsupported[lang]}</div><div class="welcome-actions"><button class="welcome-action welcome-action-primary" type="button" data-open>${openLabel}<span aria-hidden="true">↗</span></button><button class="welcome-action welcome-action-dark" type="button" data-copy>${t.copy}<span aria-hidden="true">▢</span></button></div><p class="welcome-footnote">${t.foot}</p><div class="welcome-status" role="status" aria-live="polite" hidden></div></section>`;
-  document.body.append(overlay);document.body.style.overflow='hidden';
-  const background=[...document.body.children].filter(node=>node!==overlay),inertState=background.map(node=>node.inert);background.forEach(node=>{node.inert=true});
-  const status=overlay.querySelector('.welcome-status');
-  const showStatus=message=>{status.textContent=message;status.hidden=false};
-  // Best-effort scheme; host apps and OS versions may block it.
-  // Show fallback instructions immediately: launch success cannot be detected.
-  overlay.querySelector('[data-open]').addEventListener('click',()=>{
-    showStatus(iPhone?t.steps:unsupported[lang]);
-    if(!ios || !/^https?:$/.test(location.protocol))return;
-    try{location.assign('x-safari-'+location.href)}catch(_){showStatus(t.steps)}
-  });
-  const legacyCopy=()=>{
-    const field=document.createElement('textarea');field.value=location.href;
-    field.setAttribute('readonly','');field.style.cssText='position:fixed;left:0;top:0;opacity:0;font-size:16px';
-    overlay.append(field);
-    try{field.focus();field.select();field.setSelectionRange(0,field.value.length);return document.execCommand('copy')}
-    finally{field.remove();overlay.querySelector('[data-copy]').focus({preventScroll:true})}
-  };
-  overlay.querySelector('[data-copy]').addEventListener('click',async()=>{
-    let copied=false;
-    try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(location.href);copied=true}}catch(_){}
-    if(!copied){try{copied=legacyCopy()}catch(_){}}
-    showStatus(copied?t.copied:t.failed);
-    let field=overlay.querySelector('[data-manual-link]');
-    if(!copied){
-      if(!field){field=document.createElement('input');field.type='text';field.readOnly=true;field.dataset.manualLink='';field.className='welcome-manual-link';field.setAttribute('aria-label',t.copy);status.after(field)}
-      field.hidden=false;field.value=location.href;field.focus();field.select();
-    }else if(field){field.hidden=true}
-  });
-  overlay.querySelector('[data-open]')?.focus({preventScroll:true});
-})();
 
-// Automatic best-effort Safari handoff on iPhone HTTPS pages.
 (() => {
-  const ua = navigator.userAgent;
-  const isIPhone = /iPhone/i.test(ua);
-  const inApp = /FBAN|FBAV|FBIOS|Instagram|Line\/|Twitter|TikTok|MicroMessenger|GSA\/|YouTube|Snapchat/i.test(ua);
-  const isSafari = !inApp && /Version\/[\d.]+.*Safari\//i.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
-  if (!isIPhone || isSafari) return;
-  if (location.protocol !== 'https:') return;
-  try {
-    const key = 'walletGuideSafariAttempt';
-    const last = Number(sessionStorage.getItem(key) || 0);
-    if (Date.now() - last < 30000) return;
-    sessionStorage.setItem(key, String(Date.now()));
-  } catch (_) {}
-  try { location.assign('x-safari-' + location.href); } catch (_) {}
+  function init() {
+    const ua = navigator.userAgent;
+    if (!/iPhone/i.test(ua)) return;
+    if (location.protocol !== "https:") return;
+
+
+    if (document.getElementById('safari-helper')) return;
+    const messages={"zh":["在 Safari 中打开","如果没有自动打开，可点击下方按钮，或复制链接到 Safari。","打开 Safari ↗","复制链接","继续浏览","页面链接","已尝试打开 Safari；如果 App 提示确认，请选择打开。","未能发起跳转，请复制链接后在 Safari 中打开。","已复制，请打开 Safari 并粘贴链接。","请长按下方地址，手动复制。"],"en":["Open in Safari","If Safari does not open automatically, use the button or copy the link into Safari.","Open Safari ↗","Copy link","Continue browsing","Page link","Safari launch attempted. Confirm opening if the app asks.","Could not launch Safari. Copy the link and open it in Safari.","Link copied. Open Safari and paste it.","Press and hold the address below to copy it."],"es":["Abrir en Safari","Si Safari no se abre automáticamente, usa el botón o copia el enlace.","Abrir Safari ↗","Copiar enlace","Seguir navegando","Enlace de la página","Se intentó abrir Safari. Confirma si la aplicación lo solicita.","No se pudo abrir Safari. Copia el enlace y ábrelo en Safari.","Enlace copiado. Abre Safari y pégalo.","Mantén pulsada la dirección para copiarla."],"fr":["Ouvrir dans Safari","Si Safari ne s’ouvre pas automatiquement, utilisez le bouton ou copiez le lien.","Ouvrir Safari ↗","Copier le lien","Continuer la navigation","Lien de la page","Ouverture de Safari tentée. Confirmez si l’application le demande.","Impossible d’ouvrir Safari. Copiez le lien et ouvrez-le dans Safari.","Lien copié. Ouvrez Safari et collez-le.","Maintenez l’adresse ci-dessous pour la copier."],"de":["In Safari öffnen","Falls Safari nicht automatisch öffnet, nutzen Sie die Schaltfläche oder kopieren Sie den Link.","Safari öffnen ↗","Link kopieren","Weiter surfen","Seitenlink","Safari wurde angefordert. Bestätigen Sie bei einer Nachfrage.","Safari konnte nicht geöffnet werden. Kopieren Sie den Link.","Link kopiert. Öffnen Sie Safari und fügen Sie ihn ein.","Halten Sie die Adresse gedrückt, um sie zu kopieren."],"ja":["Safariで開く","自動で開かない場合は、ボタンを押すかリンクをSafariにコピーしてください。","Safariを開く ↗","リンクをコピー","閲覧を続ける","ページのリンク","Safariを開こうとしました。確認が表示されたら許可してください。","Safariを開けませんでした。リンクをコピーして開いてください。","コピーしました。Safariを開いて貼り付けてください。","下のアドレスを長押ししてコピーしてください。"],"ko":["Safari에서 열기","자동으로 열리지 않으면 버튼을 누르거나 링크를 Safari에 복사하세요.","Safari 열기 ↗","링크 복사","계속 보기","페이지 링크","Safari 열기를 시도했습니다. 앱에서 물으면 열기를 확인하세요.","Safari를 열 수 없습니다. 링크를 복사하여 여세요.","복사했습니다. Safari를 열어 붙여 넣으세요.","아래 주소를 길게 눌러 복사하세요."],"pt":["Abrir no Safari","Se o Safari não abrir automaticamente, use o botão ou copie o link.","Abrir Safari ↗","Copiar link","Continuar navegando","Link da página","Tentativa de abrir o Safari. Confirme se o app solicitar.","Não foi possível abrir o Safari. Copie o link e abra-o no Safari.","Link copiado. Abra o Safari e cole.","Pressione e segure o endereço abaixo para copiar."]};
+    const language=String(window.GUIDE_LOCALE||document.documentElement.lang||navigator.language||'en').toLowerCase().split('-')[0];
+    const t=messages[language]||messages.en;
+    const helperStyle=document.createElement('style');helperStyle.textContent="\r\n  #safari-helper {\r\n    position: fixed;\r\n    bottom: 16px;\r\n    left: 16px;\r\n    right: 16px;\r\n    max-width: 420px;\r\n    margin: auto;\r\n    padding: 18px;\r\n    background: #fff;\r\n    color: #18251e;\r\n    border: 1px solid #ddd;\r\n    border-radius: 14px;\r\n    box-shadow: 0 8px 32px #0003;\r\n    font: 14px/1.6 system-ui, sans-serif;\r\n    z-index: 99999;\r\n  }\r\n  #safari-helper[hidden] { display: none; }\r\n  #safari-helper p { margin: 0 0 12px; }\r\n  #safari-helper button {\r\n    padding: 10px 14px;\r\n    margin: 4px 6px 4px 0;\r\n    border: 0;\r\n    border-radius: 8px;\r\n    background: #244d3a;\r\n    color: #fff;\r\n    font: inherit;\r\n    cursor: pointer;\r\n  }\r\n  #safari-helper .secondary {\r\n    background: #eee;\r\n    color: #18251e;\r\n  }\r\n  #safari-helper input {\r\n    box-sizing: border-box;\r\n    width: 100%;\r\n    margin-top: 10px;\r\n    padding: 8px;\r\n    font-size: 16px;\r\n  }\r\n\n#safari-helper{box-sizing:border-box;max-height:calc(100dvh - 32px);overflow:auto}#safari-helper *{box-sizing:border-box}";document.head.append(helperStyle);
+    const holder=document.createElement('div');holder.innerHTML="<section id=\"safari-helper\" hidden aria-label=\"打开 Safari\">\r\n  <p><strong>在 Safari 中打开</strong></p>\r\n  <p>如果没有自动打开，可点击下方按钮，或复制链接到 Safari。</p>\r\n  <button type=\"button\" id=\"safari-open\">打开 Safari ↗</button>\r\n  <button type=\"button\" id=\"safari-copy\" class=\"secondary\">\r\n    复制链接\r\n  </button>\r\n  <button type=\"button\" id=\"safari-close\" class=\"secondary\">\r\n    继续浏览\r\n  </button>\r\n  <p id=\"safari-status\" role=\"status\" aria-live=\"polite\"></p>\r\n  <input id=\"safari-link\" readonly hidden aria-label=\"页面链接\">\r\n</section>";document.body.append(holder.firstElementChild);
+    const helper=document.getElementById('safari-helper');helper.setAttribute('aria-label',t[0]);
+    helper.querySelector('strong').textContent=t[0];helper.querySelectorAll('p')[1].textContent=t[1];
+    document.getElementById('safari-open').textContent=t[2];document.getElementById('safari-copy').textContent=t[3];document.getElementById('safari-close').textContent=t[4];document.getElementById('safari-link').setAttribute('aria-label',t[5]);
+
+    const current = new URL(location.href);
+    const telegramMode =
+      current.searchParams.get("source") === "telegram";
+
+    const inApp =
+      /FBAN|FBAV|FBIOS|Instagram|Telegram|Line\/|Twitter|TikTok|MicroMessenger|GSA\/|YouTube|Snapchat/i.test(ua);
+
+    const isSafari =
+      !inApp &&
+      /Version\/[\d.]+.*Safari\//i.test(ua) &&
+      !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
+
+    // Telegram 模式强制尝试一次。
+    // 目标网址移除该参数，避免 Safari 重复跳转。
+    const target = new URL(current.href);
+    target.searchParams.delete("source");
+    const safariURL = "x-safari-" + target.href;
+
+    const panel = document.getElementById("safari-helper");
+    const status = document.getElementById("safari-status");
+    const field = document.getElementById("safari-link");
+
+    // 手动按钮不受 Safari 判断或自动尝试次数限制。
+    function openSafari() {
+      status.textContent =
+        t[6];
+      try {
+        location.assign(safariURL);
+      } catch (_) {
+        status.textContent =
+          t[7];
+      }
+    }
+
+    document.getElementById("safari-open")
+      .addEventListener("click", openSafari);
+
+    document.getElementById("safari-copy")
+      .addEventListener("click", async () => {
+        try {
+          if (!navigator.clipboard?.writeText) {
+            throw new Error("Clipboard unavailable");
+          }
+          await navigator.clipboard.writeText(target.href);
+          status.textContent = t[8];
+        } catch (_) {
+          field.hidden = false;
+          field.value = target.href;
+          field.focus();
+          field.select();
+          field.setSelectionRange(0, field.value.length);
+          status.textContent = t[9];
+        }
+      });
+
+    document.getElementById("safari-close")
+      .addEventListener("click", () => {
+        panel.hidden = true;
+      });
+
+    if (isSafari && !telegramMode) {
+      // UA 无法可靠区分所有内置浏览器。
+      // 保留一个手动入口，但不自动跳转。
+      const manual = document.createElement("button");
+      manual.type = "button";
+      manual.textContent = t[0];
+      manual.style.cssText =
+        "position:fixed;bottom:16px;right:16px;" +
+        "z-index:99998;padding:10px 14px;border:0;" +
+        "border-radius:8px;background:#244d3a;color:white;";
+      manual.addEventListener("click", () => {
+        panel.hidden = false;
+        manual.hidden = true;
+      });
+      document.body.append(manual);
+      return;
+    }
+
+    panel.hidden = false;
+
+    // 30 秒内只自动尝试一次。
+    try {
+      const key = "walletGuideSafariAttemptV2";
+      const last = Number(sessionStorage.getItem(key) || 0);
+      if (Date.now() - last < 30000) return;
+      sessionStorage.setItem(key, String(Date.now()));
+    } catch (_) {}
+
+    openSafari();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, { once: true });
+  } else {
+    init();
+  }
 })();
 
