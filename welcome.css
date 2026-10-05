@@ -23,3 +23,7 @@
 .welcome-status{margin-top:9px;color:#315740;text-align:center;font-size:10px;line-height:1.5}
 @media(max-width:520px){.welcome-gate{padding:15px}.welcome-card{border-radius:20px;padding:28px 22px 24px}.welcome-brand{margin-bottom:22px}}
 @media(prefers-reduced-motion:reduce){.welcome-gate,.welcome-action{transition:none}}
+
+.welcome-action-dark{background:#15120e;border-color:#c8ab65}
+.welcome-manual-link{box-sizing:border-box;width:100%;margin-top:10px;padding:10px;border:1px solid #bcc9bd;border-radius:8px;font-size:16px;color:#18251e;background:#fff}
+.welcome-action:focus-visible{outline:3px solid #315740;outline-offset:3px}
