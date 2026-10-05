@@ -80,6 +80,9 @@
     document.getElementById('safari-open').focus({preventScroll:true});
     if (!isIPhone || location.protocol !== 'https:') return;
 
+    // Chrome and the Google app use the explicit button gesture.
+    if (/CriOS|GSA\//i.test(ua)) return;
+
     // 30 秒内只自动尝试一次。
     try {
       const key = "walletGuideSafariAttemptV2";
