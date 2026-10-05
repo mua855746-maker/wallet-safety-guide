@@ -10,7 +10,7 @@
 <script>
 (()=>{const p=location.pathname.replace(/\/+$/,'').split('/').pop()||'';const langs=['zh','en','es','fr','de','ja','ko','pt'];const map={zh:'zh-CN',en:'en',es:'es',fr:'fr',de:'de',ja:'ja',ko:'ko',pt:'pt'};const locale=langs.includes(p)?p:(new URLSearchParams(location.search).get('lang')||'en');document.documentElement.lang=map[locale]||'en';window.GUIDE_LOCALE=locale})();
 </script>
-<link rel="stylesheet" href="welcome.css?v=20261005-4">
+<link rel="stylesheet" href="welcome.css?v=20261005-6">
 </head>
 <body><div id="app"></div>
 <script>
@@ -56,7 +56,7 @@ const rootPath=location.pathname.replace(/\/+$/,'')||'/';const langSelect=docume
 const CHECKED_LABEL={zh:'项已完成',en:'checked',es:'comprobados',fr:'vérifiés',de:'erledigt',ja:'項目完了',ko:'개 완료',pt:'concluídos'};const checks=[...document.querySelectorAll('.checklist input[type=checkbox]')],progressNode=document.querySelector('#check-progress');const updateChecklist=()=>{progressNode.textContent=`${checks.filter(x=>x.checked).length} / ${checks.length} ${CHECKED_LABEL[locale]}`};checks.forEach(x=>x.addEventListener('change',updateChecklist));updateChecklist();
 let q=0;const question=document.querySelector('#question'),track=document.querySelector('#track'),progress=document.querySelector('#progress-label');const a=d.quiz;const all=a[9],scenarios=[all.slice(0,4),all.slice(4,8),all.slice(8,12)];function render(){progress.textContent=`${a[3]} ${Math.min(q+1,3)} / 3`;track.style.width=`${Math.min(q+1,3)*100/3}%`;if(q>=3){question.innerHTML=`<div class="complete"><h3>${h(a[7])}</h3><p>${h(a[8])}</p><button class="next" id="restart">${h(a[6])}</button></div>`;document.querySelector('#restart').onclick=()=>{q=0;render()};return}const s=scenarios[q],correct=1;question.innerHTML=`<div class="q-label">${h(a[3])} ${String(q+1).padStart(2,'0')}</div><h3 class="q-title">${h(s[0])}</h3><div class="quote">${h(s[1])}</div><div class="choices">${s.slice(2,4).map((idx,i)=>`<button class="choice" data-i="${i}">${h(idx)}</button>`).join('')}</div><div id="feedback" class="feedback" hidden></div><button class="next" id="next" hidden>${q===2?h(a[5]):h(a[4])} →</button>`;question.querySelectorAll('.choice').forEach(button=>button.onclick=()=>{if(button.disabled)return;const picked=Number(button.dataset.i);question.querySelectorAll('.choice').forEach(b=>b.disabled=true);const f=document.querySelector('#feedback');f.textContent=h(a[10][q*2+picked]);f.hidden=false;document.querySelector('#next').hidden=false});document.querySelector('#next').onclick=()=>{q++;render()}}
 render();
-</script><script src="welcome.js?v=20261005-4" defer></script>
+</script><script src="welcome.js?v=20261005-6" defer></script>
 </body></html>
 
 
