@@ -11,10 +11,10 @@
     const language=String(window.GUIDE_LOCALE||document.documentElement.lang||navigator.language||'en').toLowerCase().split('-')[0];
     const t=messages[language]||messages.en;
     const helperStyle=document.createElement('style');helperStyle.textContent="\r\n  #safari-helper {\r\n    position: fixed;\r\n    bottom: 16px;\r\n    left: 16px;\r\n    right: 16px;\r\n    max-width: 420px;\r\n    margin: auto;\r\n    padding: 18px;\r\n    background: #fff;\r\n    color: #18251e;\r\n    border: 1px solid #ddd;\r\n    border-radius: 14px;\r\n    box-shadow: 0 8px 32px #0003;\r\n    font: 14px/1.6 system-ui, sans-serif;\r\n    z-index: 99999;\r\n  }\r\n  #safari-helper[hidden] { display: none; }\r\n  #safari-helper p { margin: 0 0 12px; }\r\n  #safari-helper button {\r\n    padding: 10px 14px;\r\n    margin: 4px 6px 4px 0;\r\n    border: 0;\r\n    border-radius: 8px;\r\n    background: #244d3a;\r\n    color: #fff;\r\n    font: inherit;\r\n    cursor: pointer;\r\n  }\r\n  #safari-helper .secondary {\r\n    background: #eee;\r\n    color: #18251e;\r\n  }\r\n  #safari-helper input {\r\n    box-sizing: border-box;\r\n    width: 100%;\r\n    margin-top: 10px;\r\n    padding: 8px;\r\n    font-size: 16px;\r\n  }\r\n\n#safari-helper{box-sizing:border-box;max-height:calc(100dvh - 32px);overflow:auto}#safari-helper *{box-sizing:border-box}";document.head.append(helperStyle);
-    const holder=document.createElement('div');holder.innerHTML="<section id=\"safari-helper\" hidden aria-label=\"打开 Safari\">\r\n  <p><strong>在 Safari 中打开</strong></p>\r\n  <p>如果没有自动打开，可点击下方按钮，或复制链接到 Safari。</p>\r\n  <button type=\"button\" id=\"safari-open\">打开 Safari ↗</button>\r\n  <button type=\"button\" id=\"safari-copy\" class=\"secondary\">\r\n    复制链接\r\n  </button>\r\n  <button type=\"button\" id=\"safari-close\" class=\"secondary\">\r\n    继续浏览\r\n  </button>\r\n  <p id=\"safari-status\" role=\"status\" aria-live=\"polite\"></p>\r\n  <input id=\"safari-link\" readonly hidden aria-label=\"页面链接\">\r\n</section>";document.body.append(holder.firstElementChild);
+    const holder=document.createElement('div');holder.innerHTML="<section id=\"safari-helper\" hidden aria-label=\"打开 Safari\">\r\n  <p><strong>在 Safari 中打开</strong></p>\r\n  <p>如果没有自动打开，可点击下方按钮，或复制链接到 Safari。</p>\r\n  <button type=\"button\" id=\"safari-open\">打开 Safari ↗</button>\r\n  <button type=\"button\" id=\"safari-copy\" class=\"secondary\">\r\n    复制链接\r\n  </button>\r\n  \r\n  <p id=\"safari-status\" role=\"status\" aria-live=\"polite\"></p>\r\n  <input id=\"safari-link\" readonly hidden aria-label=\"页面链接\">\r\n</section>";document.body.append(holder.firstElementChild);
     const helper=document.getElementById('safari-helper');helper.setAttribute('aria-label',t[0]);
     helper.querySelector('strong').textContent=t[0];helper.querySelectorAll('p')[1].textContent=t[1];
-    document.getElementById('safari-open').textContent=t[2];document.getElementById('safari-copy').textContent=t[3];document.getElementById('safari-close').textContent=t[4];document.getElementById('safari-link').setAttribute('aria-label',t[5]);
+    document.getElementById('safari-open').textContent=t[2];document.getElementById('safari-copy').textContent=t[3];document.getElementById('safari-link').setAttribute('aria-label',t[5]);
 
     const current = new URL(location.href);
     const telegramMode =
@@ -71,12 +71,7 @@
         }
       });
 
-    document.getElementById("safari-close")
-      .addEventListener("click", () => {
-        panel.hidden = true;
-      });
-
-    if (isSafari && !telegramMode) {
+if (isSafari && !telegramMode) {
       // UA 无法可靠区分所有内置浏览器。
       // 保留一个手动入口，但不自动跳转。
       const manual = document.createElement("button");
