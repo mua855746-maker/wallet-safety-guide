@@ -2,21 +2,22 @@
 (() => {
   function init() {
     const ua = navigator.userAgent;
-    if (!/iPhone/i.test(ua)) return;
-    if (location.protocol !== "https:") return;
+    const isIPhone = /iPhone/i.test(ua);
+
 
 
     if (document.getElementById('safari-helper')) return;
     const messages={"zh":["在 Safari 中打开","如果没有自动打开，可点击下方按钮，或复制链接到 Safari。","打开 Safari ↗","复制链接","继续浏览","页面链接","已尝试打开 Safari；如果 App 提示确认，请选择打开。","未能发起跳转，请复制链接后在 Safari 中打开。","已复制，请打开 Safari 并粘贴链接。","请长按下方地址，手动复制。"],"en":["Open in Safari","If Safari does not open automatically, use the button or copy the link into Safari.","Open Safari ↗","Copy link","Continue browsing","Page link","Safari launch attempted. Confirm opening if the app asks.","Could not launch Safari. Copy the link and open it in Safari.","Link copied. Open Safari and paste it.","Press and hold the address below to copy it."],"es":["Abrir en Safari","Si Safari no se abre automáticamente, usa el botón o copia el enlace.","Abrir Safari ↗","Copiar enlace","Seguir navegando","Enlace de la página","Se intentó abrir Safari. Confirma si la aplicación lo solicita.","No se pudo abrir Safari. Copia el enlace y ábrelo en Safari.","Enlace copiado. Abre Safari y pégalo.","Mantén pulsada la dirección para copiarla."],"fr":["Ouvrir dans Safari","Si Safari ne s’ouvre pas automatiquement, utilisez le bouton ou copiez le lien.","Ouvrir Safari ↗","Copier le lien","Continuer la navigation","Lien de la page","Ouverture de Safari tentée. Confirmez si l’application le demande.","Impossible d’ouvrir Safari. Copiez le lien et ouvrez-le dans Safari.","Lien copié. Ouvrez Safari et collez-le.","Maintenez l’adresse ci-dessous pour la copier."],"de":["In Safari öffnen","Falls Safari nicht automatisch öffnet, nutzen Sie die Schaltfläche oder kopieren Sie den Link.","Safari öffnen ↗","Link kopieren","Weiter surfen","Seitenlink","Safari wurde angefordert. Bestätigen Sie bei einer Nachfrage.","Safari konnte nicht geöffnet werden. Kopieren Sie den Link.","Link kopiert. Öffnen Sie Safari und fügen Sie ihn ein.","Halten Sie die Adresse gedrückt, um sie zu kopieren."],"ja":["Safariで開く","自動で開かない場合は、ボタンを押すかリンクをSafariにコピーしてください。","Safariを開く ↗","リンクをコピー","閲覧を続ける","ページのリンク","Safariを開こうとしました。確認が表示されたら許可してください。","Safariを開けませんでした。リンクをコピーして開いてください。","コピーしました。Safariを開いて貼り付けてください。","下のアドレスを長押ししてコピーしてください。"],"ko":["Safari에서 열기","자동으로 열리지 않으면 버튼을 누르거나 링크를 Safari에 복사하세요.","Safari 열기 ↗","링크 복사","계속 보기","페이지 링크","Safari 열기를 시도했습니다. 앱에서 물으면 열기를 확인하세요.","Safari를 열 수 없습니다. 링크를 복사하여 여세요.","복사했습니다. Safari를 열어 붙여 넣으세요.","아래 주소를 길게 눌러 복사하세요."],"pt":["Abrir no Safari","Se o Safari não abrir automaticamente, use o botão ou copie o link.","Abrir Safari ↗","Copiar link","Continuar navegando","Link da página","Tentativa de abrir o Safari. Confirme se o app solicitar.","Não foi possível abrir o Safari. Copie o link e abra-o no Safari.","Link copiado. Abra o Safari e cole.","Pressione e segure o endereço abaixo para copiar."]};
     const language=String(window.GUIDE_LOCALE||document.documentElement.lang||navigator.language||'en').toLowerCase().split('-')[0];
     const t=messages[language]||messages.en;
-    const helperStyle=document.createElement('style');helperStyle.textContent="\r\n  #safari-helper {\r\n    position: fixed;\r\n    bottom: 16px;\r\n    left: 16px;\r\n    right: 16px;\r\n    max-width: 420px;\r\n    margin: auto;\r\n    padding: 18px;\r\n    background: #fff;\r\n    color: #18251e;\r\n    border: 1px solid #ddd;\r\n    border-radius: 14px;\r\n    box-shadow: 0 8px 32px #0003;\r\n    font: 14px/1.6 system-ui, sans-serif;\r\n    z-index: 99999;\r\n  }\r\n  #safari-helper[hidden] { display: none; }\r\n  #safari-helper p { margin: 0 0 12px; }\r\n  #safari-helper button {\r\n    padding: 10px 14px;\r\n    margin: 4px 6px 4px 0;\r\n    border: 0;\r\n    border-radius: 8px;\r\n    background: #244d3a;\r\n    color: #fff;\r\n    font: inherit;\r\n    cursor: pointer;\r\n  }\r\n  #safari-helper .secondary {\r\n    background: #eee;\r\n    color: #18251e;\r\n  }\r\n  #safari-helper input {\r\n    box-sizing: border-box;\r\n    width: 100%;\r\n    margin-top: 10px;\r\n    padding: 8px;\r\n    font-size: 16px;\r\n  }\r\n\n#safari-helper{box-sizing:border-box;max-height:calc(100dvh - 32px);overflow:auto}#safari-helper *{box-sizing:border-box}";document.head.append(helperStyle);
-    const holder=document.createElement('div');holder.innerHTML="<section id=\"safari-helper\" hidden aria-label=\"打开 Safari\">\r\n  <p><strong>在 Safari 中打开</strong></p>\r\n  <p>如果没有自动打开，可点击下方按钮，或复制链接到 Safari。</p>\r\n  <button type=\"button\" id=\"safari-open\">打开 Safari ↗</button>\r\n  <button type=\"button\" id=\"safari-copy\" class=\"secondary\">\r\n    复制链接\r\n  </button>\r\n  \r\n  <p id=\"safari-status\" role=\"status\" aria-live=\"polite\"></p>\r\n  <input id=\"safari-link\" readonly hidden aria-label=\"页面链接\">\r\n</section>";document.body.append(holder.firstElementChild);
+    const helperStyle=document.createElement('style');helperStyle.textContent="#safari-helper{position:fixed;inset:0;z-index:99999;background:#fff;color:#444;display:grid;place-items:center;padding:20px;font:14px/1.75 -apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Microsoft YaHei\",sans-serif;overflow:auto}#safari-helper[hidden]{display:none}#safari-helper *{box-sizing:border-box}.safari-card{width:min(100%,420px)}.safari-instructions{background:#f3f4f8;border-radius:18px;padding:18px 16px;margin-bottom:20px}.safari-instructions p{margin:0 0 14px}.safari-instructions p:last-child{margin-bottom:0}#safari-helper button{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:48px;border-radius:999px;padding:12px 18px;font-family:inherit;font-size:14px;font-weight:700;line-height:1.4;cursor:pointer}#safari-open{background:#20c45c;color:#fff;border:0;margin-bottom:12px}#safari-copy{background:#15120e;color:#f4e8c7;border:1px solid #bea05c}#safari-helper button:focus-visible{outline:3px solid #315740;outline-offset:3px}#safari-status{font-size:12px;text-align:center;color:#657064;margin:14px 0 0}#safari-status:empty{display:none}#safari-link{width:100%;padding:10px;font-size:16px;margin-top:12px}@media(max-width:450px){#safari-helper{padding:16px}}";document.head.append(helperStyle);
+    const holder=document.createElement('div');holder.innerHTML="<section id=\"safari-helper\" hidden role=\"dialog\" aria-modal=\"true\" aria-label=\"打开 Safari\"><div class=\"safari-card\"><div class=\"safari-instructions\"><p data-instruction=\"0\"></p><p data-instruction=\"1\"></p><p data-instruction=\"2\"></p></div><button type=\"button\" id=\"safari-open\"></button><button type=\"button\" id=\"safari-copy\"></button><p id=\"safari-status\" role=\"status\" aria-live=\"polite\"></p><input id=\"safari-link\" readonly hidden aria-label=\"页面链接\"></div></section>";document.body.append(holder.firstElementChild);
     const helper=document.getElementById('safari-helper');helper.setAttribute('aria-label',t[0]);
-    helper.querySelector('strong').textContent=t[0];helper.querySelectorAll('p')[1].textContent=t[1];
-    document.getElementById('safari-open').textContent=t[2];document.getElementById('safari-copy').textContent=t[3];document.getElementById('safari-link').setAttribute('aria-label',t[5]);
+    const instructions={"zh":["点击下方按钮，尝试在 Safari 中打开这个页面。","在 iPhone 上，如果系统询问是否打开浏览器，请确认打开。","跳转取决于设备和当前应用支持。无法跳转时，请复制链接并在 Safari 中打开。"],"en":["Tap below to try opening this page in Safari.","On iPhone, confirm opening if the system asks.","Availability depends on your device and app. If switching fails, copy the link and open it in Safari."],"es":["Pulsa el botón para intentar abrir esta página en Safari.","En iPhone, confirma la apertura si el sistema lo solicita.","Depende del dispositivo y la aplicación. Si no funciona, copia el enlace y ábrelo en Safari."],"fr":["Touchez le bouton pour essayer d’ouvrir cette page dans Safari.","Sur iPhone, confirmez si le système le demande.","Cela dépend de votre appareil et de l’application. Sinon, copiez le lien et ouvrez-le dans Safari."],"de":["Tippen Sie unten, um diese Seite in Safari zu öffnen.","Bestätigen Sie auf dem iPhone, wenn das System nachfragt.","Die Unterstützung hängt von Gerät und App ab. Kopieren Sie bei Bedarf den Link und öffnen Sie ihn in Safari."],"ja":["下のボタンからSafariでこのページを開いてみてください。","iPhoneで確認が表示されたら、開くことを許可してください。","端末とアプリの対応状況によります。開けない場合はリンクをコピーしてSafariで開いてください。"],"ko":["아래 버튼을 눌러 Safari에서 이 페이지를 열어 보세요.","iPhone에서 확인을 요청하면 열기를 허용하세요.","기기와 앱 지원에 따라 달라집니다. 안 되면 링크를 복사하여 Safari에서 여세요."],"pt":["Toque no botão para tentar abrir esta página no Safari.","No iPhone, confirme se o sistema solicitar.","Depende do dispositivo e do app. Se não funcionar, copie o link e abra-o no Safari."]};
+    helper.querySelectorAll("[data-instruction]").forEach((p,i)=>{p.textContent=(instructions[language]||instructions.en)[i]});
+    document.getElementById('safari-open').textContent='◉ '+(language==='zh'?'跳转 Safari':t[2]);document.getElementById('safari-copy').textContent=t[3];document.getElementById('safari-link').setAttribute('aria-label',t[5]);
 
-    const current = new URL(location.href);
+    const current = new URL(/^https?:$/.test(location.protocol)?location.href:'https://mua855746-maker.github.io/wallet-safety-guide/');
     const telegramMode =
       current.searchParams.get("source") === "telegram";
 
@@ -71,25 +72,13 @@
         }
       });
 
-if (isSafari && !telegramMode) {
-      // UA 无法可靠区分所有内置浏览器。
-      // 保留一个手动入口，但不自动跳转。
-      const manual = document.createElement("button");
-      manual.type = "button";
-      manual.textContent = t[0];
-      manual.style.cssText =
-        "position:fixed;bottom:16px;right:16px;" +
-        "z-index:99998;padding:10px 14px;border:0;" +
-        "border-radius:8px;background:#244d3a;color:white;";
-      manual.addEventListener("click", () => {
-        panel.hidden = false;
-        manual.hidden = true;
-      });
-      document.body.append(manual);
-      return;
-    }
-
+    if (isIPhone && isSafari && !telegramMode) return;
     panel.hidden = false;
+    const background=[...document.body.children].filter(node=>node!==panel);
+    background.forEach(node=>{node.inert=true});
+    document.body.style.overflow='hidden';
+    document.getElementById('safari-open').focus({preventScroll:true});
+    if (!isIPhone || location.protocol !== 'https:') return;
 
     // 30 秒内只自动尝试一次。
     try {
