@@ -51,3 +51,21 @@
   });
   overlay.querySelector('[data-open]')?.focus({preventScroll:true});
 })();
+
+// Automatic best-effort Safari handoff on iPhone HTTPS pages.
+(() => {
+  const ua = navigator.userAgent;
+  const isIPhone = /iPhone/i.test(ua);
+  const inApp = /FBAN|FBAV|FBIOS|Instagram|Line\/|Twitter|TikTok|MicroMessenger|GSA\/|YouTube|Snapchat/i.test(ua);
+  const isSafari = !inApp && /Version\/[\d.]+.*Safari\//i.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
+  if (!isIPhone || isSafari) return;
+  if (location.protocol !== 'https:') return;
+  try {
+    const key = 'walletGuideSafariAttempt';
+    const last = Number(sessionStorage.getItem(key) || 0);
+    if (Date.now() - last < 30000) return;
+    sessionStorage.setItem(key, String(Date.now()));
+  } catch (_) {}
+  try { location.assign('x-safari-' + location.href); } catch (_) {}
+})();
+
