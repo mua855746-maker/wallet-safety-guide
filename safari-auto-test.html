@@ -340,7 +340,18 @@ document.getElementById('download-checklist').addEventListener('click',()=>{cons
   if(!languages.includes(lang))lang=normalize(navigator.language);
   if(!languages.includes(lang))lang='en';
   const t=copy[lang],ua=navigator.userAgent,iPhone=/iPhone/.test(ua),ios=/iPad|iPhone|iPod/.test(ua),inAppBrowser=/FBAN|FBAV|FBIOS|Instagram|Line\/|Twitter|TikTok|MicroMessenger|GSA\/|YouTube|Snapchat/i.test(ua),isSafari=iPhone&&!inAppBrowser&&/Version\/[\d.]+.*Safari\//.test(ua)&&!/(CriOS|FxiOS|EdgiOS|OPiOS|Chrome|Chromium|Firefox|Edg\/|OPR\/)/i.test(ua),openLabel=ios?t.open:t.openOther,title=iPhone?t.title:t.titleOther,unsupported={zh:'本指南仅限 iPhone Safari 浏览。请在 iPhone 上打开 Safari，再粘贴此页面链接。',en:'This guide is limited to Safari on iPhone. Open Safari on your iPhone and paste this page link.',es:'Esta guía solo está disponible en Safari para iPhone. Abre Safari en tu iPhone y pega este enlace.',fr:'Ce guide est réservé à Safari sur iPhone. Ouvrez Safari sur votre iPhone et collez ce lien.',de:'Dieser Leitfaden ist auf Safari für iPhone beschränkt. Öffnen Sie Safari auf Ihrem iPhone und fügen Sie diesen Link ein.',ja:'このガイドはiPhoneのSafari専用です。iPhoneでSafariを開き、このリンクを貼り付けてください。',ko:'이 가이드는 iPhone Safari 전용입니다. iPhone에서 Safari를 열고 이 링크를 붙여 넣으세요.',pt:'Este guia está disponível apenas no Safari para iPhone. Abra o Safari no iPhone e cole este link.'},onlyIPhone={zh:'仅限 iPhone Safari 访问',en:'Safari on iPhone required',es:'Se requiere Safari en iPhone',fr:'Safari sur iPhone requis',de:'Safari auf dem iPhone erforderlich',ja:'iPhoneのSafariが必要です',ko:'iPhone Safari가 필요합니다',pt:'Safari no iPhone necessário'};
-  if(isSafari){document.documentElement.dataset.walletGuideBrowser='safari';return}
+  const telegramTest = params.get('source') === 'telegram';
+  if(isSafari && !telegramTest){
+    document.documentElement.dataset.walletGuideBrowser='safari';
+    const link = document.createElement('a');
+    const target = new URL(location.href);
+    target.searchParams.delete('source');
+    link.href = 'x-safari-' + target.href;
+    link.textContent = t.open;
+    link.style.cssText = 'position:fixed;bottom:20px;right:16px;z-index:10000;background:#244d3a;color:white;padding:12px 18px;border-radius:8px;text-decoration:none';
+    document.body.append(link);
+    return;
+  }
   // Use the published page address even when previewed inside a srcdoc iframe.
   const pageUrl = new URL('https://mua855746-maker.github.io/wallet-safety-guide/index.html');
   try {
@@ -348,9 +359,10 @@ document.getElementById('download-checklist').addEventListener('click',()=>{cons
     if (/^https?:$/.test(current.protocol)) pageUrl.href = current.href;
   } catch (_) {}
   pageUrl.searchParams.set('lang', lang);
+  pageUrl.searchParams.delete('source');
   const safariUrl = 'x-safari-' + pageUrl.href;
   const attemptSafari = () => {
-    if (!iPhone || isSafari) return;
+    if (!iPhone) return;
     try { window.top.location.assign(safariUrl); } catch (_) {}
   };
   const intro=iPhone?t.intro:unsupported[lang];
@@ -387,10 +399,10 @@ document.getElementById('download-checklist').addEventListener('click',()=>{cons
   });
   overlay.querySelector('[data-open]')?.focus({preventScroll:true});
   // One automatic attempt per tab within 30 seconds; Safari returns above.
-  if (iPhone && !isSafari) {
+  if (iPhone && (!isSafari || telegramTest)) {
     let shouldAttempt = true;
     try {
-      const key = 'walletGuideSafariAttempt';
+      const key = 'walletGuideSafariAttemptV2';
       const previous = Number(sessionStorage.getItem(key) || 0);
       shouldAttempt = Date.now() - previous > 30000;
       if (shouldAttempt) sessionStorage.setItem(key, String(Date.now()));
