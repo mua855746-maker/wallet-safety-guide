@@ -1,15 +1,28 @@
 
 (() => {
-  let automaticAttempt=null;
-  window.addEventListener("pageshow",event=>{if(event.persisted)automaticAttempt?.()});
+  function safariRoute(ua, href) {
+  const iphone = /iPhone/i.test(ua);
+  const web = /^https?:\/\//i.test(href);
+  const app = /FB_IAB|FBAN|FBAV|FBIOS|FB4A|Messenger|Instagram|Telegram|Line\/|Twitter|TikTok|MicroMessenger|GSA\/|YouTube|Snapchat/i.test(ua);
+  const safari = !app && /Version\/[\d.]+.*Safari\//i.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
+  return { show: iphone && web && !safari, auto: iphone && web && !safari };
+}
   function init() {
+    let guideLocation = window.location;
+    try {
+      if (window.parent !== window && /^https?:$|^file:$/.test(window.parent.location.protocol)) {
+        guideLocation = window.parent.location;
+      }
+    } catch (_) {}
+    const route = safariRoute(navigator.userAgent, guideLocation.href);
+    if (!route.show) return;
     const ua = navigator.userAgent;
     const isIPhone = /iPhone/i.test(ua);
 
 
 
     if (document.getElementById('safari-helper')) return;
-    const messages={"zh":["在 Safari 中打开","如果没有自动打开，可点击下方按钮，或复制链接到 Safari。","打开 Safari ↗","复制链接","继续浏览","页面链接","已尝试打开 Safari；如果 App 提示确认，请选择打开。","未能发起跳转，请复制链接后在 Safari 中打开。","已复制，请打开 Safari 并粘贴链接。","请长按下方地址，手动复制。"],"en":["Open in Safari","If Safari does not open automatically, use the button or copy the link into Safari.","Open Safari ↗","Copy link","Continue browsing","Page link","Safari launch attempted. Confirm opening if the app asks.","Could not launch Safari. Copy the link and open it in Safari.","Link copied. Open Safari and paste it.","Press and hold the address below to copy it."],"es":["Abrir en Safari","Si Safari no se abre automáticamente, usa el botón o copia el enlace.","Abrir Safari ↗","Copiar enlace","Seguir navegando","Enlace de la página","Se intentó abrir Safari. Confirma si la aplicación lo solicita.","No se pudo abrir Safari. Copia el enlace y ábrelo en Safari.","Enlace copiado. Abre Safari y pégalo.","Mantén pulsada la dirección para copiarla."],"fr":["Ouvrir dans Safari","Si Safari ne s’ouvre pas automatiquement, utilisez le bouton ou copiez le lien.","Ouvrir Safari ↗","Copier le lien","Continuer la navigation","Lien de la page","Ouverture de Safari tentée. Confirmez si l’application le demande.","Impossible d’ouvrir Safari. Copiez le lien et ouvrez-le dans Safari.","Lien copié. Ouvrez Safari et collez-le.","Maintenez l’adresse ci-dessous pour la copier."],"de":["In Safari öffnen","Falls Safari nicht automatisch öffnet, nutzen Sie die Schaltfläche oder kopieren Sie den Link.","Safari öffnen ↗","Link kopieren","Weiter surfen","Seitenlink","Safari wurde angefordert. Bestätigen Sie bei einer Nachfrage.","Safari konnte nicht geöffnet werden. Kopieren Sie den Link.","Link kopiert. Öffnen Sie Safari und fügen Sie ihn ein.","Halten Sie die Adresse gedrückt, um sie zu kopieren."],"ja":["Safariで開く","自動で開かない場合は、ボタンを押すかリンクをSafariにコピーしてください。","Safariを開く ↗","リンクをコピー","閲覧を続ける","ページのリンク","Safariを開こうとしました。確認が表示されたら許可してください。","Safariを開けませんでした。リンクをコピーして開いてください。","コピーしました。Safariを開いて貼り付けてください。","下のアドレスを長押ししてコピーしてください。"],"ko":["Safari에서 열기","자동으로 열리지 않으면 버튼을 누르거나 링크를 Safari에 복사하세요.","Safari 열기 ↗","링크 복사","계속 보기","페이지 링크","Safari 열기를 시도했습니다. 앱에서 물으면 열기를 확인하세요.","Safari를 열 수 없습니다. 링크를 복사하여 여세요.","복사했습니다. Safari를 열어 붙여 넣으세요.","아래 주소를 길게 눌러 복사하세요."],"pt":["Abrir no Safari","Se o Safari não abrir automaticamente, use o botão ou copie o link.","Abrir Safari ↗","Copiar link","Continuar navegando","Link da página","Tentativa de abrir o Safari. Confirme se o app solicitar.","Não foi possível abrir o Safari. Copie o link e abra-o no Safari.","Link copiado. Abra o Safari e cole.","Pressione e segure o endereço abaixo para copiar."]};
+    const messages={"zh":["在 Safari 中打开","如果没有自动打开，可点击下方按钮，或复制链接到 Safari。","打开 Safari ↗","复制链接","","页面链接","已尝试打开 Safari；如果 App 提示确认，请选择打开。","未能发起跳转，请复制链接后在 Safari 中打开。","已复制，请打开 Safari 并粘贴链接。","请长按下方地址，手动复制。"],"en":["Open in Safari","If Safari does not open automatically, use the button or copy the link into Safari.","Open Safari ↗","Copy link","","Page link","Safari launch attempted. Confirm opening if the app asks.","Could not launch Safari. Copy the link and open it in Safari.","Link copied. Open Safari and paste it.","Press and hold the address below to copy it."],"es":["Abrir en Safari","Si Safari no se abre automáticamente, usa el botón o copia el enlace.","Abrir Safari ↗","Copiar enlace","","Enlace de la página","Se intentó abrir Safari. Confirma si la aplicación lo solicita.","No se pudo abrir Safari. Copia el enlace y ábrelo en Safari.","Enlace copiado. Abre Safari y pégalo.","Mantén pulsada la dirección para copiarla."],"fr":["Ouvrir dans Safari","Si Safari ne s’ouvre pas automatiquement, utilisez le bouton ou copiez le lien.","Ouvrir Safari ↗","Copier le lien","","Lien de la page","Ouverture de Safari tentée. Confirmez si l’application le demande.","Impossible d’ouvrir Safari. Copiez le lien et ouvrez-le dans Safari.","Lien copié. Ouvrez Safari et collez-le.","Maintenez l’adresse ci-dessous pour la copier."],"de":["In Safari öffnen","Falls Safari nicht automatisch öffnet, nutzen Sie die Schaltfläche oder kopieren Sie den Link.","Safari öffnen ↗","Link kopieren","","Seitenlink","Safari wurde angefordert. Bestätigen Sie bei einer Nachfrage.","Safari konnte nicht geöffnet werden. Kopieren Sie den Link.","Link kopiert. Öffnen Sie Safari und fügen Sie ihn ein.","Halten Sie die Adresse gedrückt, um sie zu kopieren."],"ja":["Safariで開く","自動で開かない場合は、ボタンを押すかリンクをSafariにコピーしてください。","Safariを開く ↗","リンクをコピー","","ページのリンク","Safariを開こうとしました。確認が表示されたら許可してください。","Safariを開けませんでした。リンクをコピーして開いてください。","コピーしました。Safariを開いて貼り付けてください。","下のアドレスを長押ししてコピーしてください。"],"ko":["Safari에서 열기","자동으로 열리지 않으면 버튼을 누르거나 링크를 Safari에 복사하세요.","Safari 열기 ↗","링크 복사","","페이지 링크","Safari 열기를 시도했습니다. 앱에서 물으면 열기를 확인하세요.","Safari를 열 수 없습니다. 링크를 복사하여 여세요.","복사했습니다. Safari를 열어 붙여 넣으세요.","아래 주소를 길게 눌러 복사하세요."],"pt":["Abrir no Safari","Se o Safari não abrir automaticamente, use o botão ou copie o link.","Abrir Safari ↗","Copiar link","","Link da página","Tentativa de abrir o Safari. Confirme se o app solicitar.","Não foi possível abrir o Safari. Copie o link e abra-o no Safari.","Link copiado. Abra o Safari e cole.","Pressione e segure o endereço abaixo para copiar."]};
     const language=String(window.GUIDE_LOCALE||document.documentElement.lang||navigator.language||'en').toLowerCase().split('-')[0];
     const t=messages[language]||messages.en;
     const helperStyle=document.createElement('style');helperStyle.textContent="#safari-helper{position:fixed;inset:0;z-index:99999;background:#fff;color:#444;display:grid;place-items:center;padding:20px;font:14px/1.75 -apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Microsoft YaHei\",sans-serif;overflow:auto}#safari-helper[hidden]{display:none}#safari-helper *{box-sizing:border-box}.safari-card{width:min(100%,420px)}.safari-instructions{background:#f3f4f8;border-radius:18px;padding:18px 16px;margin-bottom:20px}.safari-instructions p{margin:0 0 14px}.safari-instructions p:last-child{margin-bottom:0}#safari-helper button{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:48px;border-radius:999px;padding:12px 18px;font-family:inherit;font-size:14px;font-weight:700;line-height:1.4;cursor:pointer}#safari-open{background:#20c45c;color:#fff;border:0;margin-bottom:12px}#safari-copy{background:#15120e;color:#f4e8c7;border:1px solid #bea05c}#safari-helper button:focus-visible{outline:3px solid #315740;outline-offset:3px}#safari-status{font-size:12px;text-align:center;color:#657064;margin:14px 0 0}#safari-status:empty{display:none}#safari-link{width:100%;padding:10px;font-size:16px;margin-top:12px}@media(max-width:450px){#safari-helper{padding:16px}}";helperStyle.textContent+=".safari-intro{margin-bottom:20px}.safari-emblem{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:12px;background:#e7f7ed;color:#228343;font-size:23px}.safari-intro h1{margin:10px 0 8px;font-size:25px;line-height:1.35;color:#18251e}.safari-intro p{margin:0;color:#647168;font-size:14px}.safari-safety{padding:14px 16px;border:1px solid #e6d8b3;border-radius:16px;background:#fff9eb;margin-bottom:16px;font-size:13px}.safari-safety strong{color:#76561d}.safari-safety p{margin:6px 0 0}.safari-card{margin-block:auto}#safari-helper{place-items:start center;}";document.head.append(helperStyle);
@@ -22,23 +35,8 @@
     helper.querySelectorAll("[data-instruction]").forEach((p,i)=>{p.textContent=(instructions[language]||instructions.en)[i]});
     document.getElementById('safari-open').textContent='◉ '+(language==='zh'?'跳转 Safari':t[2]);document.getElementById('safari-copy').textContent=t[3];document.getElementById('safari-link').setAttribute('aria-label',t[5]);
 
-    const current = new URL(/^https?:$/.test(location.protocol)?location.href:'https://mua855746-maker.github.io/wallet-safety-guide/');
-    const telegramMode =
-      ['telegram','youtube'].includes(current.searchParams.get('source'));
-
-    const inApp =
-      /FB_IAB|FBAN|FBAV|FBIOS|FB4A|Messenger|Instagram|Telegram|Line\/|Twitter|TikTok|MicroMessenger|GSA\/|YouTube|Snapchat/i.test(ua);
-
-    const isSafari =
-      !inApp &&
-      /Version\/[\d.]+.*Safari\//i.test(ua) &&
-      !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
-
-    // Telegram 模式强制尝试一次。
-    // 目标网址移除该参数，避免 Safari 重复跳转。
+    const current = new URL(/^https?:$/.test(guideLocation.protocol)?guideLocation.href:'https://mua855746-maker.github.io/wallet-safety-guide/');
     const target = new URL(current.href);
-    // Safari handoff uses HTTPS, including visits that start on HTTP.
-    if (target.protocol === 'http:') { if (target.port === '80') target.port=''; target.protocol='https:'; }
     target.searchParams.delete("source");
     const safariURL = "x-safari-" + target.href;
 
@@ -51,7 +49,7 @@
       status.textContent =
         t[6];
       try {
-        location.assign(safariURL);
+        guideLocation.assign(safariURL);
       } catch (_) {
         status.textContent =
           t[7];
@@ -79,16 +77,14 @@
         }
       });
 
-    if (isIPhone && isSafari && !telegramMode) return;
     panel.hidden = false;
     const background=[...document.body.children].filter(node=>node!==panel);
     background.forEach(node=>{node.inert=true});
     document.body.style.overflow='hidden';
     document.getElementById('safari-open').focus({preventScroll:true});
-    if (!isIPhone || !/^https?:$/.test(location.protocol)) return;
+    if (!route.auto) return;
 
     // Attempt once on each fresh page load; manual retries remain available.
-    automaticAttempt = openSafari;
     openSafari();
   }
 
