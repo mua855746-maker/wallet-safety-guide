@@ -24,10 +24,10 @@
 
     const current = new URL(/^https?:$/.test(location.protocol)?location.href:'https://mua855746-maker.github.io/wallet-safety-guide/');
     const telegramMode =
-      current.searchParams.get("source") === "telegram";
+      ['telegram','youtube'].includes(current.searchParams.get('source'));
 
     const inApp =
-      /FBAN|FBAV|FBIOS|Instagram|Telegram|Line\/|Twitter|TikTok|MicroMessenger|GSA\/|YouTube|Snapchat/i.test(ua);
+      /FB_IAB|FBAN|FBAV|FBIOS|FB4A|Messenger|Instagram|Telegram|Line\/|Twitter|TikTok|MicroMessenger|GSA\/|YouTube|Snapchat/i.test(ua);
 
     const isSafari =
       !inApp &&
