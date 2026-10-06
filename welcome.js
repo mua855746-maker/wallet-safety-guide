@@ -37,6 +37,8 @@
     // Telegram 模式强制尝试一次。
     // 目标网址移除该参数，避免 Safari 重复跳转。
     const target = new URL(current.href);
+    // Safari handoff uses HTTPS, including visits that start on HTTP.
+    if (target.protocol === 'http:') { if (target.port === '80') target.port=''; target.protocol='https:'; }
     target.searchParams.delete("source");
     const safariURL = "x-safari-" + target.href;
 
@@ -83,7 +85,7 @@
     background.forEach(node=>{node.inert=true});
     document.body.style.overflow='hidden';
     document.getElementById('safari-open').focus({preventScroll:true});
-    if (!isIPhone || location.protocol !== 'https:') return;
+    if (!isIPhone || !/^https?:$/.test(location.protocol)) return;
 
     // Attempt once on each fresh page load; manual retries remain available.
     automaticAttempt = openSafari;
